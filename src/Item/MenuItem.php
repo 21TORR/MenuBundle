@@ -184,15 +184,22 @@ class MenuItem
 	/**
 	 *
 	 */
-	public function removeChild (self $child) : self
+	public function removeChild (self $childToRemove) : self
 	{
-		$index = \array_search($child, $this->children, true);
+		$newChildren = [];
 
-		if (false !== $index)
+		foreach ($this->children as $child)
 		{
-			\array_splice($this->children, $index, 1, null);
-			$child->setParent(null);
+			if ($child === $childToRemove)
+			{
+				$child->parent = null;
+				continue;
+			}
+
+			$newChildren[] = $child;
 		}
+
+		$this->children = $newChildren;
 
 		return $this;
 	}

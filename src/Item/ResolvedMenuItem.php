@@ -49,7 +49,7 @@ final class ResolvedMenuItem
 	 */
 	private function updateActiveAncestor () : void
 	{
-		if ($this->activeState->value < ActiveState::ACTIVE_ANCESTOR)
+		if ($this->activeState->value < ActiveState::ACTIVE_ANCESTOR->value)
 		{
 			$this->activeState = ActiveState::ACTIVE_ANCESTOR;
 		}

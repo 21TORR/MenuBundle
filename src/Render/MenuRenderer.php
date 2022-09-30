@@ -62,7 +62,6 @@ class MenuRenderer
 
 
 	/**
-	 * @return bool whether a child element is active
 	 */
 	private function renderAndAppendElement (
 		HtmlElement $parentListElement,
