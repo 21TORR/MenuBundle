@@ -38,7 +38,7 @@ jobs:
                 run: composer-normalize --indent-style tab --indent-size 1 --dry-run --ansi
 
             -   name: PHP CS Fixer
-                run: "./vendor/bin/php-cs-fixer fix --diff --config vendor-bin/cs-fixer/vendor/21torr/php-cs-fixer/.php-cs-fixer.dist.php --dry-run --no-interaction --ansi --format=checkstyle"
+                run: "./vendor/bin/php-cs-fixer fix --diff --config vendor-bin/cs-fixer/vendor/21torr/php-cs-fixer/.php-cs-fixer.dist.php --dry-run --no-interaction --ansi"
                 env:
                     PHP_CS_FIXER_IGNORE_ENV: 1
 

@@ -7,7 +7,7 @@ use Torr\MenuBundle\Voter\Data\ActiveState;
 final class ResolvedMenuItem
 {
 	private ActiveState $activeState = ActiveState::INACTIVE;
-	/** @var ResolvedMenuItem[] */
+	/** @var self[] */
 	private array $children = [];
 
 	/**
@@ -65,7 +65,7 @@ final class ResolvedMenuItem
 	}
 
 	/**
-	 * @return ResolvedMenuItem[]
+	 * @return self[]
 	 */
 	public function getChildren () : array
 	{
@@ -73,7 +73,7 @@ final class ResolvedMenuItem
 	}
 
 	/**
-	 * @return ResolvedMenuItem[]
+	 * @return self[]
 	 */
 	public function getVisibleChildren () : array
 	{

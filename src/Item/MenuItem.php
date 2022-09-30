@@ -11,7 +11,7 @@ class MenuItem
 	/**
 	 * The children of the menu item.
 	 *
-	 * @var MenuItem[]
+	 * @var self[]
 	 */
 	private array $children = [];
 	//endregion
@@ -24,13 +24,11 @@ class MenuItem
 		 * The parent menu item.
 		 */
 		private ?self $parent = null,
-
 		/**
 		 * The label to display.
 		 * Will be translated using the translation domain given in the renderer.
 		 */
 		private readonly TranslatableInterface|string|null $label = null,
-
 		/**
 		 * The target of this item.
 		 *
@@ -39,17 +37,14 @@ class MenuItem
 		 * null					-> no link
 		 */
 		private readonly LinkableInterface|string|null $target = null,
-
 		/**
 		 * Whether the item is the currently selected menu item.
 		 */
 		private ?bool $current = null,
-
 		/**
 		 * The extra attributes on the menu item.
 		 */
 		private array $extras = [],
-
 		/**
 		 * Whether the item is virtual (= should be included in the tree but never rendered).
 		 */
@@ -160,7 +155,7 @@ class MenuItem
 
 
 	/**
-	 * @return MenuItem[]
+	 * @return self[]
 	 */
 	public function getChildren () : array
 	{
@@ -228,7 +223,7 @@ class MenuItem
 
 
 	/**
-	 * @return MenuItem[]
+	 * @return self[]
 	 */
 	public function getVisibleChildren () : array
 	{

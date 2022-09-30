@@ -16,9 +16,7 @@ class SimpleRouteVoter implements VoterInterface
 	public function __construct(
 		private readonly RequestStack $requestStack,
 		private readonly bool $alsoCheckParameters = false,
-	)
-	{
-	}
+	) {}
 
 	/**
 	 * @inheritDoc

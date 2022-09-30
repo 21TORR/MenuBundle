@@ -21,9 +21,7 @@ class MenuRenderer
 		private readonly iterable $renderVisitors,
 		private readonly MenuResolver $menuResolver,
 		private readonly UrlGeneratorInterface $router,
-	)
-	{
-	}
+	) {}
 
 
 	/**
