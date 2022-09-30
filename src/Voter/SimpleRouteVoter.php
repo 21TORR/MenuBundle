@@ -4,6 +4,7 @@ namespace Torr\MenuBundle\Voter;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Torr\MenuBundle\Item\MenuItem;
+use Torr\Rad\Route\Linkable;
 
 /**
  * Simple voter that just checks whether the route of the item matches to the current route.
@@ -38,23 +39,22 @@ class SimpleRouteVoter implements VoterInterface
 			return null;
 		}
 
-		// at this point in time the core visitor has already transformed all targets to a URL, but the previous route will
-		// be stored in the extra `_route`
-		$targetRoute = $item->getExtra("_route");
+		$target = $item->getTarget();
 
-		if (null === $targetRoute)
+		// if the target is not a linkable, just skip
+		if (!$target instanceof Linkable)
 		{
 			return null;
 		}
 
-		if ($targetRoute !== $route)
+		if ($target->getRoute() !== $route)
 		{
 			return false;
 		}
 
 		return !$this->alsoCheckParameters || $this->checkParameters(
 			$request->attributes->get("_route_params"),
-			$item->getExtra("_route_params", []),
+			$target->getParameters(),
 		);
 	}
 
@@ -68,7 +68,7 @@ class SimpleRouteVoter implements VoterInterface
 		{
 			foreach ($left as $key => $value)
 			{
-				if (!\array_key_exists($key, $right) || !$this->compare($right[$key], $value))
+				if (!\array_key_exists($key, $right) || $right[$key] !== $value)
 				{
 					return false;
 				}
@@ -76,14 +76,5 @@ class SimpleRouteVoter implements VoterInterface
 		}
 
 		return true;
-	}
-
-
-	/**
-	 * Compares the two values.
-	 */
-	protected function compare ($left, $right) : bool
-	{
-		return $left === $right;
 	}
 }

@@ -2,13 +2,6 @@
 
 namespace Torr\MenuBundle\Exception;
 
-class MenuException extends \Exception
+interface MenuException extends \Throwable
 {
-	/**
-	 * @inheritDoc
-	 */
-	public function __construct (string $message, ?\Throwable $previous = null)
-	{
-		parent::__construct($message, 0, $previous);
-	}
 }

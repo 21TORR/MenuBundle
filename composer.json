@@ -1,52 +1,60 @@
 {
-    "name": "21torr/menu-bundle",
-    "description": "TBD",
-    "license": "MIT",
-    "type": "symfony-bundle",
-    "authors": [
-        {
-            "name": "21TORR",
-            "homepage": "https://www.21torr.com"
-        }
-    ],
-    "homepage": "https://github.com/21TORR/menu-bundle",
-    "require": {
-        "php": ">=8.1",
-        "21torr/bundle-helpers": "^2.1",
-        "psr/log": "^1.1.4 || ^2.0.0 || ^3.0.0",
-        "symfony/config": "^6.1",
-        "symfony/dependency-injection": "^6.1",
-        "symfony/expression-language": "^6.1",
-        "symfony/http-kernel": "^6.1",
-        "symfony/routing": "^6.1",
-        "symfony/security-core": "^6.1",
-        "symfony/translation-contracts": "^1.1.0 || ^2.0.0 || ^3.0.0",
-        "twig/twig": "^3.3"
-    },
-    "require-dev": {
-        "bamarni/composer-bin-plugin": "^1.4",
-        "roave/security-advisories": "dev-latest",
-        "symfony/css-selector": "^6.1",
-        "symfony/dom-crawler": "^6.1",
-        "symfony/phpunit-bridge": "^6.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Torr\\MenuBundle\\": "src/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "bamarni/composer-bin-plugin": true
-        },
-        "sort-packages": true
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "@composer bin all install --ansi"
-        ],
-        "post-update-cmd": [
-            "@composer bin all update --ansi"
-        ]
-    }
+	"name": "21torr/menu-bundle",
+	"description": "TBD",
+	"license": "MIT",
+	"type": "symfony-bundle",
+	"authors": [
+		{
+			"name": "21TORR",
+			"homepage": "https://www.21torr.com"
+		}
+	],
+	"homepage": "https://github.com/21TORR/menu-bundle",
+	"require": {
+		"php": ">=8.1",
+		"21torr/bundle-helpers": "^2.1",
+		"21torr/html-builder": "^2.0",
+		"21torr/rad": "^2.1",
+		"psr/log": "^3.0.0",
+		"symfony/config": "^6.1",
+		"symfony/dependency-injection": "^6.1",
+		"symfony/expression-language": "^6.1",
+		"symfony/http-kernel": "^6.1",
+		"symfony/routing": "^6.1",
+		"symfony/security-core": "^6.1",
+		"symfony/translation-contracts": "^3.1"
+	},
+	"require-dev": {
+		"bamarni/composer-bin-plugin": "^1.4",
+		"phpunit/phpunit": "^9.5",
+		"roave/security-advisories": "dev-latest",
+		"symfony/css-selector": "^6.1",
+		"symfony/dom-crawler": "^6.1",
+		"symfony/phpunit-bridge": "^6.1",
+		"symfony/translation": "^6.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Torr\\MenuBundle\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\Torr\\MenuBundle\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"bamarni/composer-bin-plugin": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"@composer bin all install --ansi"
+		],
+		"post-update-cmd": [
+			"@composer bin all update --ansi"
+		]
+	}
 }
