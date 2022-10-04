@@ -4,6 +4,7 @@ namespace Tests\Torr\MenuBundle\Render;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Render\MenuRenderer;
@@ -55,6 +56,43 @@ final class MenuRendererTest extends TestCase
 		self::assertSame($expected, $result);
 	}
 
+	/**
+	 * Test translations
+	 */
+	public function testTranslate () : void
+	{
+		$tree = (new MenuItem())
+			->addChild(new MenuItem(label: "Fixed"))
+			->addChild(new MenuItem(label: new TranslatableMessage("translation-key", ["some" => "param"], "domain")))
+			->addChild(new MenuItem(label: null));
+
+		$urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+		$translator = $this->createMock(TranslatorInterface::class);
+
+		$translator
+			->method("trans")
+			->with("translation-key", ["some" => "param"], "domain", "locale")
+			->willReturn("translated-label");
+
+		$renderer = new MenuRenderer(new MenuResolver(), $urlGenerator, $translator);
+		$result = $renderer->render(
+			$tree,
+			new RenderOptions(locale: "locale"),
+		);
+
+		$expected = $this->removeWhitespace(<<<'HTML'
+			<ul>
+				<li>
+					<span>Fixed</span>
+				</li>
+				<li>
+					<span>translated-label</span>
+				</li>
+			</ul>
+		HTML);
+
+		self::assertSame($expected, $result);
+	}
 
 	private function removeWhitespace (string $text) : string
 	{
