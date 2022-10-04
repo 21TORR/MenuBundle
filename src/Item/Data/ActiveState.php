@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Torr\MenuBundle\Voter\Data;
+namespace Torr\MenuBundle\Item\Data;
 
 enum ActiveState : int
 {

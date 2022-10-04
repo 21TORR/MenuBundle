@@ -8,11 +8,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\HtmlBuilder\Builder\HtmlBuilder;
 use Torr\HtmlBuilder\Node\HtmlElement;
 use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Item\Data\ActiveState;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Item\ResolvedMenuItem;
 use Torr\MenuBundle\Render\Options\RenderOptions;
 use Torr\MenuBundle\Resolver\MenuResolver;
-use Torr\MenuBundle\Voter\Data\ActiveState;
 use Torr\Rad\Route\LinkableInterface;
 
 class MenuRenderer
@@ -91,7 +91,7 @@ class MenuRenderer
 			}
 
 			$link = new HtmlElement("a", [
-				"href" => $resolvedTarget
+				"href" => $resolvedTarget,
 			]);
 		}
 		else

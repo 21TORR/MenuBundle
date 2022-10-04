@@ -2,7 +2,7 @@
 
 namespace Torr\MenuBundle\Item;
 
-use Torr\MenuBundle\Voter\Data\ActiveState;
+use Torr\MenuBundle\Item\Data\ActiveState;
 
 final class ResolvedMenuItem
 {
