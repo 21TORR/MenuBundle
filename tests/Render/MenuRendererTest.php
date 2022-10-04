@@ -239,6 +239,7 @@ final class MenuRendererTest extends TestCase
 				(new MenuItem("Level 1"))
 					->addChild(
 						(new MenuItem("Level 1.1"))
+							->setCurrent()
 							->addChild(
 								(new MenuItem("Level 1.1.1"))
 									->setCurrent()
@@ -260,7 +261,7 @@ final class MenuRendererTest extends TestCase
 					<span class="is-current-ancestor-custom">Level 1</span>
 					<ul>
 						<li>
-							<span class="is-current-ancestor-custom">Level 1.1</span>
+							<span class="is-current-custom">Level 1.1</span>
 							<ul>
 								<li>
 									<span class="is-current-custom">Level 1.1.1</span>
