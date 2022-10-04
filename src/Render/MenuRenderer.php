@@ -45,7 +45,7 @@ class MenuRenderer
 		]);
 		ray($resolvedRoot);
 
-		foreach ($resolvedRoot->getChildren() as $child)
+		foreach ($resolvedRoot->getVisibleChildren() as $child)
 		{
 			$li = new HtmlElement("li");
 			$this->renderAndAppendElement(
@@ -117,7 +117,7 @@ class MenuRenderer
 		// append to parent element
 		$parentListElement->append($link);
 
-		$children = $resolvedMenuItem->getChildren();
+		$children = $resolvedMenuItem->getVisibleChildren();
 		$nextDepth = $depth + 1;
 
 		// render children
@@ -125,7 +125,7 @@ class MenuRenderer
 		{
 			$childList = new HtmlElement("ul");
 
-			foreach ($resolvedMenuItem->getVisibleChildren() as $child)
+			foreach ($children as $child)
 			{
 				$childListElement = new HtmlElement("li");
 

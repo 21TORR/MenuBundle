@@ -275,6 +275,42 @@ final class MenuRendererTest extends TestCase
 
 		self::assertSame($expected, $result);
 	}
+
+	/**
+	 *
+	 */
+	public function testInvisibleChildrenAreSkipped () : void
+	{
+		$root = (new MenuItem())
+			->addChild(new MenuItem())
+			->addChild(
+				(new MenuItem("Level 1"))
+					->addChild(new MenuItem())
+					->addChild(
+						(new MenuItem("Level 2"))
+							->addChild(new MenuItem())
+					)
+					->addChild(new MenuItem())
+			);
+
+		$renderer = new MenuRenderer(new MenuResolver());
+		$result = $renderer->render($root);
+
+		$expected = $this->removeWhitespace(<<<'HTML'
+			<ul>
+				<li>
+					<span>Level 1</span>
+					<ul>
+						<li>
+							<span>Level 2</span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		HTML);
+
+		self::assertSame($expected, $result);
+	}
 	/**
 	 *
 	 */
