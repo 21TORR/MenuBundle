@@ -11,5 +11,9 @@ final class RenderOptions
 		public readonly string $currentClass = "is-current",
 		public readonly string $ancestorClass = "is-current-ancestor",
 		public readonly ?int $maxDepth = null,
+		/**
+		 * The pattern to generate the level class. Is used in `sprintf` and is passed the level
+		 */
+		public readonly ?string $levelClass = null,
 	) {}
 }

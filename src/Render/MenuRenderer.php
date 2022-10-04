@@ -98,7 +98,11 @@ class MenuRenderer
 				break;
 		}
 
-		$classList->add("_menu-link-level-{$depth}");
+		if (null !== $options->levelClass)
+		{
+			$classList->add(\sprintf($options->levelClass, $depth));
+		}
+
 		$children = $resolvedMenuItem->getChildren();
 
 		// append to parent element
