@@ -21,31 +21,26 @@ class SimpleRouteVoter implements VoterInterface
 	/**
 	 * @inheritDoc
 	 */
-	public function vote (MenuItem $item) : ?bool
+	public function vote (MenuItem $item) : bool
 	{
 		$request = $this->requestStack->getMainRequest();
 
 		if (null === $request)
 		{
-			return null;
+			return false;
 		}
 
 		$route = $request->attributes->get("_route");
 
 		if (null === $route)
 		{
-			return null;
+			return false;
 		}
 
 		$target = $item->getTarget();
 
 		// if the target is not a linkable, just skip
-		if (!$target instanceof Linkable)
-		{
-			return null;
-		}
-
-		if ($target->getRoute() !== $route)
+		if (!$target instanceof Linkable || $target->getRoute() !== $route)
 		{
 			return false;
 		}
@@ -60,16 +55,16 @@ class SimpleRouteVoter implements VoterInterface
 	/**
 	 * Checks that the parameters are equal.
 	 */
-	private function checkParameters (array $left, array $right) : bool
+	private function checkParameters (array $currentActiveParams, array $linkableParams) : bool
 	{
-		if (\count($left) === \count($right))
+		// The linkable can have more params than we currently have.
+		// For this check to be executed, the route must already match -> that means it's safe to assume
+		// that additional params in the linkable are for query params.
+		foreach ($currentActiveParams as $key => $value)
 		{
-			foreach ($left as $key => $value)
+			if (!\array_key_exists($key, $linkableParams) || $linkableParams[$key] !== $value)
 			{
-				if (!\array_key_exists($key, $right) || $right[$key] !== $value)
-				{
-					return false;
-				}
+				return false;
 			}
 		}
 
