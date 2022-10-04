@@ -12,6 +12,9 @@ use Torr\MenuBundle\Resolver\MenuResolver;
 
 final class MenuRendererTest extends TestCase
 {
+	/**
+	 *
+	 */
 	public function testRender () : void
 	{
 		$tree = (new MenuItem())
@@ -28,7 +31,7 @@ final class MenuRendererTest extends TestCase
 		$translator = $this->createMock(TranslatorInterface::class);
 
 		$renderer = new MenuRenderer(new MenuResolver(), $urlGenerator, $translator);
-		$result = $renderer->render($tree, new RenderOptions());
+		$result = $renderer->render($tree);
 
 		$expected = $this->removeWhitespace(<<<'HTML'
 			<ul>
