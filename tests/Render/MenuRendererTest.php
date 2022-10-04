@@ -10,6 +10,7 @@ use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Render\MenuRenderer;
 use Torr\MenuBundle\Render\Options\RenderOptions;
 use Torr\MenuBundle\Resolver\MenuResolver;
+use Torr\Rad\Route\Linkable;
 
 final class MenuRendererTest extends TestCase
 {
@@ -94,6 +95,49 @@ final class MenuRendererTest extends TestCase
 		self::assertSame($expected, $result);
 	}
 
+
+	/**
+	 * Test target generation
+	 */
+	public function testTargets () : void
+	{
+		$tree = (new MenuItem())
+			->addChild(new MenuItem(label: "Null", target: null))
+			->addChild(new MenuItem(label: "Fixed", target: "fixed"))
+			->addChild(new MenuItem(label: "Linkable", target: new Linkable("route", ["some" => "params"], UrlGeneratorInterface::ABSOLUTE_URL)));
+
+		$urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+		$translator = $this->createMock(TranslatorInterface::class);
+
+		$urlGenerator
+			->method("generate")
+			->with("route", ["some" => "params"], UrlGeneratorInterface::ABSOLUTE_URL)
+			->willReturn("generated");
+
+		$renderer = new MenuRenderer(new MenuResolver(), $urlGenerator, $translator);
+		$result = $renderer->render($tree);
+
+		$expected = $this->removeWhitespace(<<<'HTML'
+			<ul>
+				<li>
+					<span>Null</span>
+				</li>
+				<li>
+					<a href="fixed">Fixed</a>
+				</li>
+				<li>
+					<a href="generated">Linkable</a>
+				</li>
+			</ul>
+		HTML);
+
+		self::assertSame($expected, $result);
+	}
+
+
+	/**
+	 *
+	 */
 	private function removeWhitespace (string $text) : string
 	{
 		return \implode(
