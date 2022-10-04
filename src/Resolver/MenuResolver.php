@@ -29,7 +29,7 @@ final class MenuResolver
 	{
 		$resolvedItem = new ResolvedMenuItem($parent, $item);
 
-		if ($this->isActiveItem($item))
+		if ($item->isCurrent() || $this->isActiveItem($item))
 		{
 			$resolvedItem->setActive();
 		}
