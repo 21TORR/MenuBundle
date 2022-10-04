@@ -44,7 +44,6 @@ class MenuRenderer
 		$topLevel = new HtmlElement("ul", [
 			"class" => $renderOptions->rootClass,
 		]);
-		ray($resolvedRoot);
 
 		foreach ($resolvedRoot->getVisibleChildren() as $child)
 		{
