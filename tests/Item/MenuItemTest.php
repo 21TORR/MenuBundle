@@ -79,4 +79,23 @@ final class MenuItemTest extends TestCase
 	{
 		self::assertSame($expected, $item->isVisible());
 	}
+
+	/**
+	 *
+	 */
+	public function testClone () : void
+	{
+		$parent = new MenuItem();
+		$child = (new MenuItem(parent: $parent))
+			->addChild(new MenuItem())
+			->addChild(new MenuItem());
+
+		$clone = clone $child;
+
+		self::assertNull($clone->getParent());
+		self::assertCount(1, $parent->getChildren());
+		self::assertCount(2, $clone->getChildren());
+		self::assertNotSame($clone->getChildren()[0], $child->getChildren()[0]);
+		self::assertNotSame($clone->getChildren()[1], $child->getChildren()[1]);
+	}
 }
