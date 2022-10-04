@@ -28,8 +28,8 @@
 		"symfony/dom-crawler": "^6.1",
 		"symfony/phpunit-bridge": "^6.1",
 		"symfony/routing": "^6.1",
-		"symfony/translation": "^6.1",
-		"symfony/security-core": "^6.1"
+		"symfony/security-core": "^6.1",
+		"symfony/translation": "^6.1"
 	},
 	"suggest": {
 		"symfony/expression-language": "To support security expressions in the menu",
