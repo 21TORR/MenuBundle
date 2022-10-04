@@ -21,14 +21,14 @@ class MenuItem
 	 */
 	public function __construct (
 		/**
-		 * The parent menu item.
-		 */
-		private ?self $parent = null,
-		/**
 		 * The label to display.
 		 * Will be translated using the translation domain given in the renderer.
 		 */
 		private readonly TranslatableInterface|string|null $label = null,
+		/**
+		 * The parent menu item.
+		 */
+		private ?self $parent = null,
 		/**
 		 * The target of this item.
 		 *

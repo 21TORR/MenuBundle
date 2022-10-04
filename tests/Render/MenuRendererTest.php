@@ -21,12 +21,12 @@ final class MenuRendererTest extends TestCase
 	{
 		$tree = (new MenuItem())
 			->addChild(
-				(new MenuItem(label: "Level 1"))
-					->addChild(new MenuItem(label: "Level 1.1"))
-					->addChild(new MenuItem(label: "Level 1.2"))
+				(new MenuItem("Level 1"))
+					->addChild(new MenuItem("Level 1.1"))
+					->addChild(new MenuItem("Level 1.2"))
 			)
 			->addChild(
-				(new MenuItem(label: "Level 2"))
+				(new MenuItem("Level 2"))
 			);
 
 		$urlGenerator = $this->createMock(UrlGeneratorInterface::class);
@@ -63,9 +63,9 @@ final class MenuRendererTest extends TestCase
 	public function testTranslate () : void
 	{
 		$tree = (new MenuItem())
-			->addChild(new MenuItem(label: "Fixed"))
-			->addChild(new MenuItem(label: new TranslatableMessage("translation-key", ["some" => "param"], "domain")))
-			->addChild(new MenuItem(label: null));
+			->addChild(new MenuItem("Fixed"))
+			->addChild(new MenuItem(new TranslatableMessage("translation-key", ["some" => "param"], "domain")))
+			->addChild(new MenuItem(null));
 
 		$urlGenerator = $this->createMock(UrlGeneratorInterface::class);
 		$translator = $this->createMock(TranslatorInterface::class);
@@ -102,9 +102,9 @@ final class MenuRendererTest extends TestCase
 	public function testTargets () : void
 	{
 		$tree = (new MenuItem())
-			->addChild(new MenuItem(label: "Null", target: null))
-			->addChild(new MenuItem(label: "Fixed", target: "fixed"))
-			->addChild(new MenuItem(label: "Linkable", target: new Linkable("route", ["some" => "params"], UrlGeneratorInterface::ABSOLUTE_URL)));
+			->addChild(new MenuItem("Null", target: null))
+			->addChild(new MenuItem("Fixed", target: "fixed"))
+			->addChild(new MenuItem("Linkable", target: new Linkable("route", ["some" => "params"], UrlGeneratorInterface::ABSOLUTE_URL)));
 
 		$urlGenerator = $this->createMock(UrlGeneratorInterface::class);
 		$translator = $this->createMock(TranslatorInterface::class);

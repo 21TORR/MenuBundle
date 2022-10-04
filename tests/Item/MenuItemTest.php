@@ -13,7 +13,7 @@ final class MenuItemTest extends TestCase
 	public function testParent () : void
 	{
 		$parent = new MenuItem();
-		$child = new MenuItem($parent);
+		$child = new MenuItem(parent: $parent);
 
 		self::assertNull($parent->getParent());
 		self::assertCount(1, $parent->getChildren());
@@ -27,7 +27,7 @@ final class MenuItemTest extends TestCase
 	public function moveChild () : void
 	{
 		$oldParent = new MenuItem();
-		$child = new MenuItem($oldParent);
+		$child = new MenuItem(parent: $oldParent);
 
 		self::assertSame($oldParent, $child->getParent());
 		self::assertCount(1, $oldParent->getChildren());
