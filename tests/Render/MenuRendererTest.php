@@ -224,6 +224,57 @@ final class MenuRendererTest extends TestCase
 
 		self::assertSame($expected, $result);
 	}
+
+	/**
+	 *
+	 */
+	public function testCurrent () : void
+	{
+		$tree = (new MenuItem())
+			->addChild(
+				(new MenuItem("Level 1"))
+					->addChild(
+						(new MenuItem("Level 1.1"))
+							->addChild(
+								(new MenuItem("Level 1.1.1"))
+									->setCurrent()
+									->addChild(new MenuItem("Level 1.1.1.1"))
+							)
+					)
+			);
+
+		$renderOptions = new RenderOptions(
+			currentClass: "is-current-custom",
+			ancestorClass: "is-current-ancestor-custom",
+		);
+		$renderer = new MenuRenderer(new MenuResolver());
+		$result = $renderer->render($tree, $renderOptions);
+
+		$expected = $this->removeWhitespace(<<<'HTML'
+			<ul>
+				<li>
+					<span class="is-current-ancestor-custom">Level 1</span>
+					<ul>
+						<li>
+							<span class="is-current-ancestor-custom">Level 1.1</span>
+							<ul>
+								<li>
+									<span class="is-current-custom">Level 1.1.1</span>
+									<ul>
+										<li>
+											<span>Level 1.1.1.1</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		HTML);
+
+		self::assertSame($expected, $result);
+	}
 	/**
 	 *
 	 */
