@@ -3,6 +3,8 @@
 namespace Torr\MenuBundle\Render;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\HtmlBuilder\Builder\HtmlBuilder;
 use Torr\HtmlBuilder\Node\HtmlElement;
 use Torr\MenuBundle\Item\MenuItem;
@@ -18,9 +20,10 @@ class MenuRenderer
 	 * @param iterable<ItemRenderVisitorInterface> $renderVisitors
 	 */
 	public function __construct(
-		private readonly iterable $renderVisitors,
 		private readonly MenuResolver $menuResolver,
-		private readonly UrlGeneratorInterface $router,
+		private readonly UrlGeneratorInterface $urlGenerator,
+		private readonly TranslatorInterface $translator,
+		private readonly iterable $renderVisitors = [],
 	) {}
 
 
@@ -75,7 +78,7 @@ class MenuRenderer
 		{
 			$link = new HtmlElement("a", [
 				"href" => $target instanceof LinkableInterface
-					? $target->generateUrl($this->router)
+					? $target->generateUrl($this->urlGenerator)
 					: $target,
 			]);
 		}
@@ -83,6 +86,17 @@ class MenuRenderer
 		{
 			$link = new HtmlElement("span");
 		}
+
+		// region Label
+		$label = $menuItem->getLabel();
+
+		if ($label instanceof TranslatableInterface)
+		{
+			$label = $label->trans($this->translator);
+		}
+
+		$link->append($label);
+		// endregion
 
 		$classList = $link->getClassList();
 
