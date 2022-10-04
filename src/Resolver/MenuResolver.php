@@ -34,7 +34,7 @@ final class MenuResolver
 			$resolvedItem->setActive();
 		}
 
-		foreach ($item->getVisibleChildren() as $child)
+		foreach ($item->getChildren() as $child)
 		{
 			$this->resolveItem($resolvedItem, $child);
 		}
