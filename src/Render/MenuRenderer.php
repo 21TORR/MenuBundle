@@ -7,6 +7,7 @@ use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\HtmlBuilder\Builder\HtmlBuilder;
 use Torr\HtmlBuilder\Node\HtmlElement;
+use Torr\MenuBundle\Exception\MissingDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Item\ResolvedMenuItem;
 use Torr\MenuBundle\Render\Options\RenderOptions;
@@ -21,8 +22,8 @@ class MenuRenderer
 	 */
 	public function __construct(
 		private readonly MenuResolver $menuResolver,
-		private readonly UrlGeneratorInterface $urlGenerator,
-		private readonly TranslatorInterface $translator,
+		private readonly ?UrlGeneratorInterface $urlGenerator = null,
+		private readonly ?TranslatorInterface $translator = null,
 		private readonly iterable $renderVisitors = [],
 	) {}
 
@@ -78,10 +79,20 @@ class MenuRenderer
 
 		if (null !== $target)
 		{
+			$resolvedTarget = $target;
+
+			if ($resolvedTarget instanceof LinkableInterface)
+			{
+				if (null === $this->urlGenerator)
+				{
+					throw new MissingDependencyException("Can't use linkable menu items without a URL generator.");
+				}
+
+				$resolvedTarget = $resolvedTarget->generateUrl($this->urlGenerator);
+			}
+
 			$link = new HtmlElement("a", [
-				"href" => $target instanceof LinkableInterface
-					? $target->generateUrl($this->urlGenerator)
-					: $target,
+				"href" => $resolvedTarget
 			]);
 		}
 		else
@@ -94,6 +105,11 @@ class MenuRenderer
 
 		if ($label instanceof TranslatableInterface)
 		{
+			if (null === $this->translator)
+			{
+				throw new MissingDependencyException("Can't use translatable menu items without a translator.");
+			}
+
 			$label = $label->trans($this->translator, $options->locale);
 		}
 

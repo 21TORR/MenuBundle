@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Torr\MenuBundle\Exception\MissingDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Render\MenuRenderer;
 use Torr\MenuBundle\Render\Options\RenderOptions;
@@ -311,6 +312,38 @@ final class MenuRendererTest extends TestCase
 
 		self::assertSame($expected, $result);
 	}
+
+
+	/**
+	 *
+	 */
+	public function testMissingOptionalUrlGenerator () : void
+	{
+		$this->expectException(MissingDependencyException::class);
+		$this->expectExceptionMessage("Can't use linkable menu items without a URL generator.");
+
+		$item = (new MenuItem())
+			->addChild(new MenuItem(label: "Entry", target: new Linkable("test")));
+
+		$renderer = new MenuRenderer(new MenuResolver());
+		$renderer->render($item);
+	}
+
+	/**
+	 *
+	 */
+	public function testMissingOptionalTranslator () : void
+	{
+		$this->expectException(MissingDependencyException::class);
+		$this->expectExceptionMessage("Can't use translatable menu items without a translator.");
+
+		$item = (new MenuItem())
+			->addChild(new MenuItem(label: new TranslatableMessage("test")));
+
+		$renderer = new MenuRenderer(new MenuResolver());
+		$renderer->render($item);
+	}
+
 	/**
 	 *
 	 */
