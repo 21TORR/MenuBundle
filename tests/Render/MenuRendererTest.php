@@ -6,8 +6,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Torr\HtmlBuilder\Node\HtmlElement;
 use Torr\MenuBundle\Exception\MissingDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
+use Torr\MenuBundle\Item\ResolvedMenuItem;
+use Torr\MenuBundle\Render\ItemRenderVisitorInterface;
 use Torr\MenuBundle\Render\MenuRenderer;
 use Torr\MenuBundle\Render\Options\RenderOptions;
 use Torr\MenuBundle\Resolver\MenuResolver;
@@ -295,7 +298,7 @@ final class MenuRendererTest extends TestCase
 			);
 
 		$renderer = new MenuRenderer(new MenuResolver());
-		$result = $renderer->render($root);
+		$actual = $renderer->render($root);
 
 		$expected = $this->removeWhitespace(<<<'HTML'
 			<ul>
@@ -310,7 +313,7 @@ final class MenuRendererTest extends TestCase
 			</ul>
 		HTML);
 
-		self::assertSame($expected, $result);
+		self::assertSame($expected, $actual);
 	}
 
 
@@ -342,6 +345,55 @@ final class MenuRendererTest extends TestCase
 
 		$renderer = new MenuRenderer(new MenuResolver());
 		$renderer->render($item);
+	}
+
+
+	public function testVisitors () : void
+	{
+		$root = (new MenuItem())
+			->addChild(
+				(new MenuItem("Item 1"))
+					->addChild(new MenuItem("Item 1.1"))
+			)
+			->addChild(new MenuItem("Item 2"));
+
+		$visitor = new class () implements ItemRenderVisitorInterface
+		{
+			private int $callCount = 0;
+
+			public function renderItem (ResolvedMenuItem $item, HtmlElement $element, int $depth) : void
+			{
+				++$this->callCount;
+				$element->getClassList()->add("custom-class-{$depth}");
+			}
+
+			/**
+			 */
+			public function getCallCount () : int
+			{
+				return $this->callCount;
+			}
+		};
+
+		$renderer = new MenuRenderer(new MenuResolver(), renderVisitors: [$visitor]);
+		$actual = $renderer->render($root);
+
+		$expected = $this->removeWhitespace(<<<'HTML'
+			<ul class="custom-class-0">
+				<li>
+					<span class="custom-class-1">Item 1</span>
+					<ul>
+						<li>
+							<span class="custom-class-2">Item 1.1</span>
+						</li>
+					</ul>
+				</li>
+				<li><span class="custom-class-1">Item 2</span></li>
+			</ul>
+		HTML);
+
+		self::assertSame($expected, $actual);
+		self::assertSame(4, $visitor->getCallCount());
 	}
 
 	/**

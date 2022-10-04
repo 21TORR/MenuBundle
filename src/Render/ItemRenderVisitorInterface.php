@@ -16,5 +16,6 @@ interface ItemRenderVisitorInterface
 	public function renderItem (
 		ResolvedMenuItem $item,
 		HtmlElement $element,
+		int $depth,
 	) : void;
 }

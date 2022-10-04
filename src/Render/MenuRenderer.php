@@ -52,13 +52,13 @@ class MenuRenderer
 				$li,
 				$child,
 				$renderOptions,
-				0,
+				1,
 			);
 
 			$topLevel->append($li);
 		}
 
-		$this->visitItemAfterRender($resolvedRoot, $topLevel);
+		$this->visitItemAfterRender($resolvedRoot, $topLevel, 0);
 
 		return (new HtmlBuilder())->build($topLevel);
 	}
@@ -133,10 +133,9 @@ class MenuRenderer
 		$parentListElement->append($link);
 
 		$children = $resolvedMenuItem->getVisibleChildren();
-		$nextDepth = $depth + 1;
 
 		// render children
-		if (!empty($children) && (null === $options->maxDepth || $nextDepth <= $options->maxDepth))
+		if (!empty($children) && (null === $options->maxDepth || $depth <= $options->maxDepth))
 		{
 			$childList = new HtmlElement("ul");
 
@@ -148,7 +147,7 @@ class MenuRenderer
 					$childListElement,
 					$child,
 					$options,
-					$nextDepth,
+					$depth + 1,
 				);
 
 				$childList->append($childListElement);
@@ -156,23 +155,23 @@ class MenuRenderer
 
 			if (null !== $options->levelClass)
 			{
-				$childList->getClassList()->add(\sprintf($options->levelClass, $nextDepth));
+				$childList->getClassList()->add(\sprintf($options->levelClass, $depth));
 			}
 
 			$parentListElement->append($childList);
 		}
 
-		$this->visitItemAfterRender($resolvedMenuItem, $link);
+		$this->visitItemAfterRender($resolvedMenuItem, $link, $depth);
 	}
 
 	/**
 	 * Runs the render visitors on the menu item
 	 */
-	private function visitItemAfterRender (ResolvedMenuItem $item, HtmlElement $element) : void
+	private function visitItemAfterRender (ResolvedMenuItem $item, HtmlElement $element, int $depth) : void
 	{
 		foreach ($this->renderVisitors as $visitor)
 		{
-			$visitor->renderItem($item, $element);
+			$visitor->renderItem($item, $element, $depth);
 		}
 	}
 }
