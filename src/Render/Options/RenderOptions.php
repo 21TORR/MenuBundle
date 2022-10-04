@@ -15,5 +15,9 @@ final class RenderOptions
 		 * The pattern to generate the level class. Is used in `sprintf` and is passed the level
 		 */
 		public readonly ?string $levelClass = null,
+		/**
+		 * The locale to translated the labels to
+		 */
+		public readonly ?string $locale = null,
 	) {}
 }

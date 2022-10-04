@@ -93,7 +93,7 @@ class MenuRenderer
 
 		if ($label instanceof TranslatableInterface)
 		{
-			$label = $label->trans($this->translator);
+			$label = $label->trans($this->translator, $options->locale);
 		}
 
 		$link->append($label);
