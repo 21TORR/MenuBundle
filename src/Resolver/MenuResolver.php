@@ -10,7 +10,7 @@ final class MenuResolver
 {
 	public function __construct (
 		/** @var iterable<VoterInterface> $itemVoters */
-		private readonly iterable $itemVoters,
+		private readonly iterable $itemVoters = [],
 	) {}
 
 	/**
