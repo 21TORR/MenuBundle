@@ -38,13 +38,14 @@ class MenuRenderer
 		}
 
 		$renderOptions ??= new RenderOptions();
-		$resolvedItem = $this->menuResolver->resolveMenu($root);
+		$resolvedRoot = $this->menuResolver->resolveMenu($root);
 
 		$topLevel = new HtmlElement("ul", [
 			"class" => $renderOptions->rootClass,
 		]);
+		ray($resolvedRoot);
 
-		foreach ($resolvedItem->getChildren() as $child)
+		foreach ($resolvedRoot->getChildren() as $child)
 		{
 			$li = new HtmlElement("li");
 			$this->renderAndAppendElement(
@@ -57,7 +58,7 @@ class MenuRenderer
 			$topLevel->append($li);
 		}
 
-		$this->visitItemAfterRender($resolvedItem, $topLevel);
+		$this->visitItemAfterRender($resolvedRoot, $topLevel);
 
 		return (new HtmlBuilder())->build($topLevel);
 	}
