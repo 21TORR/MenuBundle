@@ -113,18 +113,14 @@ class MenuRenderer
 				break;
 		}
 
-		if (null !== $options->levelClass)
-		{
-			$classList->add(\sprintf($options->levelClass, $depth));
-		}
-
-		$children = $resolvedMenuItem->getChildren();
-
 		// append to parent element
 		$parentListElement->append($link);
 
+		$children = $resolvedMenuItem->getChildren();
+		$nextDepth = $depth + 1;
+
 		// render children
-		if (!empty($children))
+		if (!empty($children) && (null === $options->maxDepth || $nextDepth <= $options->maxDepth))
 		{
 			$childList = new HtmlElement("ul");
 
@@ -136,10 +132,15 @@ class MenuRenderer
 					$childListElement,
 					$child,
 					$options,
-					$depth + 1,
+					$nextDepth,
 				);
 
 				$childList->append($childListElement);
+			}
+
+			if (null !== $options->levelClass)
+			{
+				$childList->getClassList()->add(\sprintf($options->levelClass, $nextDepth));
 			}
 
 			$parentListElement->append($childList);
