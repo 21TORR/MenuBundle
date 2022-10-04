@@ -136,6 +136,95 @@ final class MenuRendererTest extends TestCase
 
 
 	/**
+	 * Locale is already covered in {@see testTranslate()}
+	 */
+	public function testRenderOptions () : void
+	{
+		$tree = (new MenuItem())
+			->addChild(
+				(new MenuItem("Level 1"))
+					->addChild(
+						(new MenuItem("Level 1.1"))
+							->addChild(
+								(new MenuItem("Level 1.1.1"))
+									->addChild(new MenuItem("Level 1.1.1.1"))
+							)
+							->addChild(new MenuItem("Level 1.1.2"))
+					)
+					->addChild(
+						(new MenuItem("Level 1.2"))
+							->addChild(new MenuItem("Level 1.2.1"))
+							->addChild(new MenuItem("Level 1.2.2"))
+					)
+			)
+			->addChild(
+				(new MenuItem("Level 2"))
+					->addChild(
+						(new MenuItem("Level 2.1"))
+							->addChild(new MenuItem("Level 2.1.1"))
+							->addChild(new MenuItem("Level 2.1.2"))
+					)
+					->addChild(
+						(new MenuItem("Level 2.2"))
+							->addChild(new MenuItem("Level 2.2.1"))
+							->addChild(new MenuItem("Level 2.2.2"))
+					)
+			);
+
+		$renderOptions = new RenderOptions(
+			rootClass: "root-class",
+			maxDepth: 2,
+			levelClass: "level-%d",
+		);
+		$renderer = new MenuRenderer(new MenuResolver());
+		$result = $renderer->render($tree, $renderOptions);
+
+		$expected = $this->removeWhitespace(<<<'HTML'
+			<ul class="root-class">
+				<li>
+					<span>Level 1</span>
+					<ul class="level-1">
+						<li>
+							<span>Level 1.1</span>
+							<ul class="level-2">
+								<li><span>Level 1.1.1</span></li>
+								<li><span>Level 1.1.2</span></li>
+							</ul>
+						</li>
+						<li>
+							<span>Level 1.2</span>
+							<ul class="level-2">
+								<li><span>Level 1.2.1</span></li>
+								<li><span>Level 1.2.2</span></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<span>Level 2</span>
+					<ul class="level-1">
+						<li>
+							<span>Level 2.1</span>
+							<ul class="level-2">
+								<li><span>Level 2.1.1</span></li>
+								<li><span>Level 2.1.2</span></li>
+							</ul>
+						</li>
+						<li>
+							<span>Level 2.2</span>
+							<ul class="level-2">
+								<li><span>Level 2.2.1</span></li>
+								<li><span>Level 2.2.2</span></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		HTML);
+
+		self::assertSame($expected, $result);
+	}
+	/**
 	 *
 	 */
 	private function removeWhitespace (string $text) : string
