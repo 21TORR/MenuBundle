@@ -139,7 +139,7 @@ class MenuItem
 
 	/**
 	 */
-	public function setCurrent (bool $current) : self
+	public function setCurrent (bool $current = true) : self
 	{
 		$this->current = $current;
 		return $this;
