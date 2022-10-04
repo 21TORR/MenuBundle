@@ -40,7 +40,7 @@ class MenuItem
 		/**
 		 * Whether the item is the currently selected menu item.
 		 */
-		private ?bool $current = null,
+		private bool $current = false,
 		/**
 		 * The extra attributes on the menu item.
 		 */
@@ -143,14 +143,6 @@ class MenuItem
 	{
 		$this->current = $current;
 		return $this;
-	}
-
-
-	/**
-	 */
-	public function hasCurrentSet () : bool
-	{
-		return null !== $this->current;
 	}
 
 
