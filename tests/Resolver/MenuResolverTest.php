@@ -91,4 +91,51 @@ final class MenuResolverTest extends TestCase
 		$resolver = new MenuResolver();
 		$resolver->resolveMenu(new MenuItem(current: true));
 	}
+
+	/**
+	 */
+	public function testAncestor () : void
+	{
+		$root = (new MenuItem())
+			->addChild(
+				(new MenuItem())
+					->addChild(new MenuItem(current: true))
+			)
+			->addChild(
+				(new MenuItem())
+					->addChild(new MenuItem(extras: ["active" => true]))
+			);
+
+		$voter = new class implements VoterInterface
+		{
+			public function vote (MenuItem $item) : bool
+			{
+				return $item->getExtra("active", false);
+			}
+		};
+
+		$resolver = new MenuResolver([$voter]);
+		$resolved = $resolver->resolveMenu($root);
+
+		self::assertSame(ActiveState::ACTIVE_ANCESTOR, $resolved->getChildren()[0]->getActiveState());
+		self::assertSame(ActiveState::ACTIVE_ANCESTOR, $resolved->getChildren()[1]->getActiveState());
+
+		self::assertSame(ActiveState::ACTIVE, $resolved->getChildren()[0]->getChildren()[0]->getActiveState());
+		self::assertSame(ActiveState::ACTIVE, $resolved->getChildren()[1]->getChildren()[0]->getActiveState());
+	}
+
+	/**
+	 */
+	public function testVisibleChildren () : void
+	{
+		$root = (new MenuItem())
+			->addChild(new MenuItem(label: "test"))
+			->addChild(new MenuItem());
+
+		$resolver = new MenuResolver();
+		$resolved = $resolver->resolveMenu($root);
+
+		self::assertCount(2, $resolved->getChildren());
+		self::assertCount(1, $resolved->getVisibleChildren());
+	}
 }
