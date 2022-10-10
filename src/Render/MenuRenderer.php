@@ -31,14 +31,16 @@ class MenuRenderer
 	/**
 	 * Renders the tree from the given root
 	 */
-	public function render (?MenuItem $root, ?RenderOptions $renderOptions = null) : string
+	public function render (
+		?MenuItem $root,
+		RenderOptions $renderOptions = new RenderOptions(),
+	) : string
 	{
 		if (null === $root)
 		{
 			return "";
 		}
 
-		$renderOptions ??= new RenderOptions();
 		$resolvedRoot = $this->menuResolver->resolveMenu($root);
 
 		$topLevel = new HtmlElement("ul", [
