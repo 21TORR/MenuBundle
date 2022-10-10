@@ -14,6 +14,11 @@ class MenuItem
 	 * @var self[]
 	 */
 	private array $children = [];
+
+	/**
+	 * Whether the item is visible (= should be included in the tree but never rendered).
+	 */
+	private readonly bool $visible;
 	//endregion
 
 
@@ -40,23 +45,16 @@ class MenuItem
 		/**
 		 * Whether the item is the currently selected menu item.
 		 */
-		private bool $current = false,
+		private readonly bool $current = false,
 		/**
 		 * The extra attributes on the menu item.
 		 */
 		private array $extras = [],
-		/**
-		 * Whether the item is virtual (= should be included in the tree but never rendered).
-		 */
-		private bool $visible = true,
+		bool $visible = true,
 	)
 	{
 		$this->parent?->addChild($this);
-
-		if (null === $this->label)
-		{
-			$this->visible = false;
-		}
+		$this->visible = $visible && null !== $this->label;
 	}
 
 
@@ -132,15 +130,6 @@ class MenuItem
 	public function isCurrent () : bool
 	{
 		return true === $this->current;
-	}
-
-
-	/**
-	 */
-	public function setCurrent (bool $current = true) : self
-	{
-		$this->current = $current;
-		return $this;
 	}
 
 

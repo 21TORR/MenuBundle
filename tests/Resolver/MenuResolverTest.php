@@ -41,8 +41,7 @@ final class MenuResolverTest extends TestCase
 				->addChild(
 					(new MenuItem(label: "Hi"))
 						->addChild(
-							(new MenuItem())
-								->setCurrent()
+							new MenuItem(current: true)
 						)
 				)
 		);
@@ -90,9 +89,6 @@ final class MenuResolverTest extends TestCase
 			->method("vote");
 
 		$resolver = new MenuResolver();
-		$resolver->resolveMenu(
-			(new MenuItem())
-				->setCurrent()
-		);
+		$resolver->resolveMenu(new MenuItem(current: true));
 	}
 }

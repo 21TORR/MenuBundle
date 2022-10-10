@@ -238,11 +238,9 @@ final class MenuRendererTest extends TestCase
 			->addChild(
 				(new MenuItem("Level 1"))
 					->addChild(
-						(new MenuItem("Level 1.1"))
-							->setCurrent()
+						(new MenuItem("Level 1.1", current: true))
 							->addChild(
-								(new MenuItem("Level 1.1.1"))
-									->setCurrent()
+								(new MenuItem("Level 1.1.1", current: true))
 									->addChild(new MenuItem("Level 1.1.1.1"))
 							)
 					)
