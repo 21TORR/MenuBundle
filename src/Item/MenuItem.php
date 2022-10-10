@@ -48,10 +48,15 @@ class MenuItem
 		/**
 		 * Whether the item is virtual (= should be included in the tree but never rendered).
 		 */
-		private readonly bool $virtual = false,
+		private bool $visible = true,
 	)
 	{
 		$this->parent?->addChild($this);
+
+		if (null === $this->label)
+		{
+			$this->visible = false;
+		}
 	}
 
 
@@ -119,14 +124,7 @@ class MenuItem
 	 */
 	public function isVisible () : bool
 	{
-		return !$this->virtual && null !== $this->label;
-	}
-
-	/**
-	 */
-	public function isVirtual () : bool
-	{
-		return $this->virtual;
+		return $this->visible;
 	}
 
 	/**

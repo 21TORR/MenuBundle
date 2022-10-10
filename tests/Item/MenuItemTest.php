@@ -51,7 +51,7 @@ final class MenuItemTest extends TestCase
 			->addChild(new MenuItem())
 			->addChild(new MenuItem())
 			->addChild($visible)
-			->addChild(new MenuItem(label: "test2", virtual: true));
+			->addChild(new MenuItem(label: "test2", visible: false));
 
 		self::assertCount(4, $parent->getChildren());
 		self::assertCount(1, $parent->getVisibleChildren());
@@ -66,9 +66,9 @@ final class MenuItemTest extends TestCase
 		yield [false, new MenuItem()];
 		yield [true, new MenuItem(label: "test")];
 		yield [true, new MenuItem(label: new TranslatableMessage("test"))];
-		yield [false, new MenuItem(virtual: true)];
-		yield [false, new MenuItem(label: "test", virtual: true)];
-		yield [false, new MenuItem(label: new TranslatableMessage("test"), virtual: true)];
+		yield "explicit true, but without label" => [false, new MenuItem(visible: true)];
+		yield [false, new MenuItem(label: "test", visible: false)];
+		yield [false, new MenuItem(label: new TranslatableMessage("test"), visible: false)];
 	}
 
 
