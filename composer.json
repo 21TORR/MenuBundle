@@ -29,13 +29,15 @@
 		"symfony/phpunit-bridge": "^6.1",
 		"symfony/routing": "^6.1",
 		"symfony/security-core": "^6.1",
-		"symfony/translation": "^6.1"
+		"symfony/translation": "^6.1",
+		"twig/twig": "^3.4"
 	},
 	"suggest": {
 		"symfony/expression-language": "To support security expressions in the menu",
 		"symfony/routing": "For using linkable menu items and the route trees",
 		"symfony/security-core": "To support security expressions in the menu",
-		"symfony/translation-contracts": "For using translatable menu items"
+		"symfony/translation-contracts": "For using translatable menu items",
+		"twig/twig": "To add the render_route_menu() and render_menu() twig functions"
 	},
 	"autoload": {
 		"psr-4": {
