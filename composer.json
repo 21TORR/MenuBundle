@@ -33,7 +33,7 @@
 	},
 	"suggest": {
 		"symfony/expression-language": "To support security expressions in the menu",
-		"symfony/routing": "For using linkable menu items",
+		"symfony/routing": "For using linkable menu items and the route trees",
 		"symfony/security-core": "To support security expressions in the menu",
 		"symfony/translation-contracts": "For using translatable menu items"
 	},
