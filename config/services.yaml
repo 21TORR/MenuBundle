@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+
+    Torr\MenuBundle\:
+        resource: ../src/*
+        exclude:
+            - ../src/Exception
+            - ../src/Item
+            - ../src/Render/Options
+            - ../src/RouteTree/Collection
+            - ../src/RouteTree/Exception
+            - ../src/RouteTree/Options
+            - ../src/RouteTree/Tree
+            - ../src/TorrMenuBundle.php
