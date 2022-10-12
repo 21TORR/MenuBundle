@@ -16,7 +16,7 @@ final class RenderOptions
 		 */
 		public readonly ?string $levelClass = null,
 		/**
-		 * The locale to translated the labels to
+		 * The locale to translate the labels to
 		 */
 		public readonly ?string $locale = null,
 	) {}
