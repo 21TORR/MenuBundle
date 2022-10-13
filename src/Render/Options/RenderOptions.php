@@ -16,8 +16,27 @@ final class RenderOptions
 		 */
 		public readonly ?string $levelClass = null,
 		/**
-		 * The locale to translated the labels to
+		 * The locale to translate the labels to
 		 */
 		public readonly ?string $locale = null,
 	) {}
+
+	/**
+	 *
+	 */
+	public static function fromArray (array $data) : self
+	{
+		$filtered = [];
+		$definedProperties = get_object_vars(new self());
+
+		foreach ($data as $key => $value)
+		{
+			if (\array_key_exists($key, $definedProperties))
+			{
+				$filtered[$key] = $value;
+			}
+		}
+
+		return new self(...$filtered);
+	}
 }
