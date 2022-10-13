@@ -14,3 +14,7 @@ services:
             - ../src/RouteTree/Options
             - ../src/RouteTree/Tree
             - ../src/TorrMenuBundle.php
+
+    Torr\MenuBundle\RouteTree\Loader\RouteTreeLoader:
+        $configCacheFactory: '@config_cache_factory'
+        $cacheDir: '%kernel.cache_dir%'
