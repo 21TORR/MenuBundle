@@ -9,14 +9,23 @@ use Torr\MenuBundle\RouteTree\Loader\RouteTreeLoader;
 use Torr\MenuBundle\RouteTree\Options\RouteTreeOptions;
 use Torr\MenuBundle\RouteTree\Transformer\RouteTreeTransformHelper;
 
-final class RouteMenuRenderer
+
+/**
+ * @final
+ */
+class RouteMenuRenderer
 {
+	/**
+	 */
 	public function __construct (
 		private readonly RouteTreeLoader $loader,
 		private readonly RouteTreeTransformHelper $transformHelper,
 		private readonly MenuRenderer $menuRenderer,
 	) {}
 
+	/**
+	 *
+	 */
 	public function render (
 		string $routeName,
 		RouteTreeOptions $routeTreeOptions = new RouteTreeOptions(),

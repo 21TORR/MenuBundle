@@ -15,6 +15,9 @@ use Torr\MenuBundle\Render\Options\RenderOptions;
 use Torr\MenuBundle\Resolver\MenuResolver;
 use Torr\Rad\Route\LinkableInterface;
 
+/**
+ * @final
+ */
 class MenuRenderer
 {
 	/**
