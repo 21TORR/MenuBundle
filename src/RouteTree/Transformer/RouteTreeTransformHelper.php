@@ -12,8 +12,8 @@ final class RouteTreeTransformHelper
 	/**
 	 */
 	public function __construct (
-		private readonly ?TranslatorInterface $translator,
-		private readonly ?Security $security,
+		private readonly ?TranslatorInterface $translator = null,
+		private readonly ?Security $security = null,
 	) {}
 
 
