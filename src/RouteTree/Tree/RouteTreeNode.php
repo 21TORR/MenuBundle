@@ -33,6 +33,20 @@ final class RouteTreeNode
 		return $this->route;
 	}
 
+	/**
+	 */
+	public function getParent () : ?self
+	{
+		return $this->parent;
+	}
+
+	/**
+	 */
+	public function getLabel () : ?string
+	{
+		return $this->label;
+	}
+
 
 	/**
 	 *

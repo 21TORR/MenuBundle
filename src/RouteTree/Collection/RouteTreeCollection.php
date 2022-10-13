@@ -15,7 +15,7 @@ final class RouteTreeCollection
 	 * @param iterable<RouteTreeNode> $nodes
 	 */
 	public function __construct (
-		iterable $nodes,
+		iterable $nodes = [],
 	)
 	{
 		$indexed = [];
