@@ -9,7 +9,6 @@ use Torr\MenuBundle\RouteTree\Loader\RouteTreeLoader;
 use Torr\MenuBundle\RouteTree\Options\RouteTreeOptions;
 use Torr\MenuBundle\RouteTree\Transformer\RouteTreeTransformHelper;
 
-
 /**
  * @final
  */
