@@ -2,7 +2,7 @@
 
 namespace Torr\MenuBundle\RouteTree\Loader;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Route;
 use Torr\MenuBundle\RouteTree\Collection\RouteTreeCollection;
 use Torr\MenuBundle\RouteTree\Exception\InvalidRouteOptionsConfigurationException;
 use Torr\MenuBundle\RouteTree\Tree\RouteTreeNode;
@@ -11,6 +11,7 @@ final class RouteTreeCollectionBuilder
 {
 	/**
 	 * @param iterable<string, Route> $routes
+	 *
 	 * @internal
 	 */
 	public function build (iterable $routes) : RouteTreeCollection
