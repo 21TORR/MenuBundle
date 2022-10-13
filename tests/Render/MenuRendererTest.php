@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\HtmlBuilder\Node\HtmlElement;
-use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Item\ResolvedMenuItem;
 use Torr\MenuBundle\Render\ItemRenderVisitorInterface;
@@ -321,7 +321,7 @@ final class MenuRendererTest extends TestCase
 	 */
 	public function testMissingOptionalUrlGenerator () : void
 	{
-		$this->expectException(MissingDependencyException::class);
+		$this->expectException(MissingOptionalDependencyException::class);
 		$this->expectExceptionMessage("Can't use linkable menu items without a URL generator.");
 
 		$item = (new MenuItem())
@@ -336,7 +336,7 @@ final class MenuRendererTest extends TestCase
 	 */
 	public function testMissingOptionalTranslator () : void
 	{
-		$this->expectException(MissingDependencyException::class);
+		$this->expectException(MissingOptionalDependencyException::class);
 		$this->expectExceptionMessage("Can't use translatable menu items without a translator.");
 
 		$item = (new MenuItem())

@@ -4,7 +4,7 @@ namespace Torr\MenuBundle\RouteTree\Transformer;
 
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
 
 final class RouteTreeTransformHelper
@@ -32,7 +32,7 @@ final class RouteTreeTransformHelper
 
 		if (null === $this->translator)
 		{
-			throw new MissingDependencyException("Can't use translatable routes without a translator.");
+			throw new MissingOptionalDependencyException("Can't use translatable routes without a translator.");
 		}
 
 		return $this->translator->trans($label, domain: $translationDomain);
@@ -86,7 +86,7 @@ final class RouteTreeTransformHelper
 
 		if (null === $this->security)
 		{
-			throw new MissingDependencyException("Can't use security settings if the security bundle is not installed.");
+			throw new MissingOptionalDependencyException("Can't use security settings if the security bundle is not installed.");
 		}
 
 		return $this->security->isGranted($security);

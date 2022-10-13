@@ -7,7 +7,7 @@ use Symfony\Component\Config\ConfigCacheFactory;
 use Symfony\Component\Config\ConfigCacheFactoryInterface;
 use Symfony\Component\Config\ConfigCacheInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\RouteTree\Collection\RouteTreeCollection;
 use Torr\MenuBundle\RouteTree\Loader\RouteTreeCollectionBuilder;
 use Torr\MenuBundle\RouteTree\Loader\RouteTreeLoader;
@@ -18,7 +18,7 @@ final class RouteTreeLoaderTest extends TestCase
 	 */
 	public function testLoadingWithoutRouter () : void
 	{
-		$this->expectException(MissingDependencyException::class);
+		$this->expectException(MissingOptionalDependencyException::class);
 
 		$loader = new RouteTreeLoader(
 			new RouteTreeCollectionBuilder(),
