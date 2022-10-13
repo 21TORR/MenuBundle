@@ -35,7 +35,7 @@ final class RouteTreeNode
 
 	/**
 	 */
-	public function getParent () : ?RouteTreeNode
+	public function getParent () : ?self
 	{
 		return $this->parent;
 	}
