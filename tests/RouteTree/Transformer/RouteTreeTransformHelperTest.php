@@ -5,7 +5,7 @@ namespace Tests\Torr\MenuBundle\RouteTree\Transformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\RouteTree\Transformer\RouteTreeTransformHelper;
 
@@ -45,7 +45,7 @@ final class RouteTreeTransformHelperTest extends TestCase
 	 */
 	public function testWithoutSecurityWithLabelWithTranslation () : void
 	{
-		$this->expectException(MissingDependencyException::class);
+		$this->expectException(MissingOptionalDependencyException::class);
 
 		$helper = new RouteTreeTransformHelper();
 		$helper->translate("label", "domain");

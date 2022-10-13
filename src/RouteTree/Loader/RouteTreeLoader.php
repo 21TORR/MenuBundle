@@ -5,7 +5,7 @@ namespace Torr\MenuBundle\RouteTree\Loader;
 use Symfony\Component\Config\ConfigCacheFactoryInterface;
 use Symfony\Component\Config\ConfigCacheInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\RouteTree\Collection\RouteTreeCollection;
 
 final class RouteTreeLoader
@@ -26,7 +26,7 @@ final class RouteTreeLoader
 	{
 		if (null === $this->router)
 		{
-			throw new MissingDependencyException("Can't use the route tree without a router.");
+			throw new MissingOptionalDependencyException("Can't use the route tree without a router.");
 		}
 
 		$cache = $this->configCacheFactory->cache(

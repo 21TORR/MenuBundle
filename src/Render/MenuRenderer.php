@@ -7,7 +7,7 @@ use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\HtmlBuilder\Builder\HtmlBuilder;
 use Torr\HtmlBuilder\Node\HtmlElement;
-use Torr\MenuBundle\Exception\MissingDependencyException;
+use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\Item\Data\ActiveState;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Item\ResolvedMenuItem;
@@ -89,7 +89,7 @@ class MenuRenderer
 			{
 				if (null === $this->urlGenerator)
 				{
-					throw new MissingDependencyException("Can't use linkable menu items without a URL generator.");
+					throw new MissingOptionalDependencyException("Can't use linkable menu items without a URL generator.");
 				}
 
 				$resolvedTarget = $resolvedTarget->generateUrl($this->urlGenerator);
@@ -111,7 +111,7 @@ class MenuRenderer
 		{
 			if (null === $this->translator)
 			{
-				throw new MissingDependencyException("Can't use translatable menu items without a translator.");
+				throw new MissingOptionalDependencyException("Can't use translatable menu items without a translator.");
 			}
 
 			$label = $label->trans($this->translator, $options->locale);
