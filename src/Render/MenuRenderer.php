@@ -2,6 +2,7 @@
 
 namespace Torr\MenuBundle\Render;
 
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -20,16 +21,22 @@ use Torr\Rad\Route\LinkableInterface;
  */
 class MenuRenderer
 {
+	/** @var iterable<ItemRenderVisitorInterface> */
+	private readonly iterable $renderVisitors;
+
 	/**
-	 * @param iterable<ItemRenderVisitorInterface> $renderVisitors
 	 */
-	public function __construct(
+	public function __construct (
 		private readonly MenuResolver $menuResolver,
 		private readonly ?UrlGeneratorInterface $urlGenerator = null,
 		private readonly ?TranslatorInterface $translator = null,
-		private readonly iterable $renderVisitors = [],
-	) {}
 
+		#[TaggedIterator("torr.menu.visitor.render")]
+		iterable $renderVisitors = [],
+	)
+	{
+		$this->renderVisitors = $renderVisitors;
+	}
 
 	/**
 	 * Renders the tree from the given root
