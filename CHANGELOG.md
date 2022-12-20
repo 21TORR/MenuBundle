@@ -1,3 +1,9 @@
+1.0.2
+=====
+
+* (bug) Add missing tagged iterator integration, Part 2.
+
+
 1.0.1
 =====
 

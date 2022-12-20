@@ -2,16 +2,25 @@
 
 namespace Torr\MenuBundle\Resolver;
 
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use Torr\MenuBundle\Item\MenuItem;
 use Torr\MenuBundle\Item\ResolvedMenuItem;
 use Torr\MenuBundle\Voter\VoterInterface;
 
 final class MenuResolver
 {
+	/** @var iterable<VoterInterface> */
+	private readonly iterable $itemVoters;
+
+	/**
+	 */
 	public function __construct (
-		/** @var iterable<VoterInterface> $itemVoters */
-		private readonly iterable $itemVoters = [],
-	) {}
+		#[TaggedIterator("torr.menu.voter")]
+		iterable $itemVoters = [],
+	)
+	{
+		$this->itemVoters = $itemVoters;
+	}
 
 	/**
 	 */
