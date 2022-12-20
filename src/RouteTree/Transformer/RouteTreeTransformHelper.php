@@ -2,7 +2,7 @@
 
 namespace Torr\MenuBundle\RouteTree\Transformer;
 
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\Item\MenuItem;

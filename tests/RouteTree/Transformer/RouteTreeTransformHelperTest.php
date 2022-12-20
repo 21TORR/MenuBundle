@@ -3,7 +3,7 @@
 namespace Tests\Torr\MenuBundle\RouteTree\Transformer;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Torr\MenuBundle\Exception\MissingOptionalDependencyException;
 use Torr\MenuBundle\Item\MenuItem;
