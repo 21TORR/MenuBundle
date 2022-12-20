@@ -16,20 +16,20 @@
 		"21torr/html-builder": "^2.0",
 		"21torr/rad": "^2.1",
 		"psr/log": "^3.0.0",
-		"symfony/config": "^6.1",
-		"symfony/dependency-injection": "^6.1",
-		"symfony/http-kernel": "^6.1"
+		"symfony/config": "^6.2",
+		"symfony/dependency-injection": "^6.2",
+		"symfony/http-kernel": "^6.2"
 	},
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.4",
 		"phpunit/phpunit": "^9.5",
 		"roave/security-advisories": "dev-latest",
-		"symfony/css-selector": "^6.1",
-		"symfony/dom-crawler": "^6.1",
-		"symfony/phpunit-bridge": "^6.1",
-		"symfony/routing": "^6.1",
-		"symfony/security-core": "^6.1",
-		"symfony/translation": "^6.1",
+		"symfony/css-selector": "^6.2",
+		"symfony/dom-crawler": "^6.2",
+		"symfony/phpunit-bridge": "^6.2",
+		"symfony/routing": "^6.2",
+		"symfony/security-core": "^6.2",
+		"symfony/translation": "^6.2",
 		"twig/twig": "^3.4"
 	},
 	"suggest": {
