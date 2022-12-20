@@ -30,7 +30,6 @@ class MenuRenderer
 		private readonly MenuResolver $menuResolver,
 		private readonly ?UrlGeneratorInterface $urlGenerator = null,
 		private readonly ?TranslatorInterface $translator = null,
-
 		#[TaggedIterator("torr.menu.visitor.render")]
 		iterable $renderVisitors = [],
 	)
